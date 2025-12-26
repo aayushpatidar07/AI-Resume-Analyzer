@@ -1,0 +1,180 @@
+# QUICK START GUIDE
+
+## 🚀 Get Started in 5 Minutes
+
+### Prerequisites
+- Python 3.8+ installed
+- pip (comes with Python)
+
+### Step 1: Open Command Prompt/PowerShell
+Navigate to the project folder:
+```powershell
+cd "C:\Users\ASUS\Documents\AI Resume Analyzer & Job Matcher"
+```
+
+### Step 2: Create Virtual Environment
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+**If you get an error about execution policy:**
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Then run the activate command again.
+
+### Step 3: Install Dependencies
+```powershell
+pip install -r requirements.txt
+```
+
+Wait for all packages to install (this may take 1-2 minutes).
+
+### Step 4: Run the Application
+```powershell
+python app.py
+```
+
+You should see:
+```
+============================================================
+AI Resume Analyzer & Job Matcher
+============================================================
+Starting Flask development server...
+Navigate to: http://127.0.0.1:5000
+============================================================
+```
+
+### Step 5: Open in Browser
+- Click on: http://127.0.0.1:5000
+- Or copy-paste the URL into your browser
+
+### Step 6: Test the App
+1. **Download a sample resume** (use any PDF)
+2. **Click "Load sample job description"**
+3. **Select your resume PDF**
+4. **Click "Analyze Resume"**
+5. **View your results!**
+
+## 📝 Manual Testing
+
+### Test Case 1: Basic Matching
+- Upload any Python/JavaScript project resume
+- Paste a job description with Python/JavaScript skills
+- Expected: High match percentage
+
+### Test Case 2: Skills Mismatch
+- Upload a Java resume
+- Paste a Python job description
+- Expected: Low match percentage, missing skills shown
+
+### Test Case 3: Mixed Skills
+- Resume with: Python, Java, SQL, Git, Docker
+- Job description: Python, Kubernetes, Docker, AWS
+- Expected: Some matched, some missing skills
+
+## 🔍 Features to Try
+
+✅ **Load Sample Data** - Pre-fills job description  
+✅ **Real-time Validation** - Check file type/size before upload  
+✅ **Color-coded Results** - Green (matched), Red (missing)  
+✅ **Mobile Responsive** - Try on your phone  
+✅ **New Analysis Button** - Quick reset for new analysis  
+✅ **Error Messages** - User-friendly feedback  
+
+## 🛑 If Something Goes Wrong
+
+### Error: "Module not found"
+```powershell
+pip install -r requirements.txt --force-reinstall
+```
+
+### Error: "Port 5000 already in use"
+Edit `app.py`, find this line:
+```python
+app.run(debug=True, host='127.0.0.1', port=5000)
+```
+Change `5000` to `5001` (or any available port)
+
+### Error: "PDF cannot be read"
+- Ensure PDF is not corrupted
+- Try a different PDF file
+- Check file size (should be < 16MB)
+
+### App not responding
+- Check the terminal for error messages
+- Close the app (Ctrl+C)
+- Run it again with: `python app.py`
+
+## 📚 Project Files Explained
+
+| File | Purpose |
+|------|---------|
+| `app.py` | Main Flask application & routes |
+| `requirements.txt` | Python package dependencies |
+| `utils/resume_parser.py` | Extracts text from PDF |
+| `utils/skill_extractor.py` | Identifies skills (150+ skills) |
+| `utils/matcher.py` | Matches skills & calculates percentage |
+| `templates/index.html` | Web page UI |
+| `static/style.css` | Styling & responsive design |
+| `static/script.js` | Frontend logic & API calls |
+| `uploads/` | Temporary resume storage |
+
+## 💡 Tips & Tricks
+
+1. **Better Results**: Use detailed job descriptions with specific skills listed
+2. **Skill Recognition**: App recognizes common tech skills (Python, React, AWS, etc.)
+3. **Case Insensitive**: "python" = "Python" = "PYTHON"
+4. **Word Boundaries**: "Python" matches but "Pythonic" might not
+5. **Fresh Analysis**: Click "New Analysis" to reset form
+
+## 🎯 Skill Database
+
+The app recognizes 150+ technical skills including:
+- **Languages**: Python, Java, JavaScript, C++, C#, Go, Rust, etc.
+- **Frameworks**: React, Django, Flask, Spring Boot, Node.js, etc.
+- **Databases**: SQL, MongoDB, PostgreSQL, Redis, Cassandra, etc.
+- **Cloud/DevOps**: AWS, Azure, Docker, Kubernetes, CI/CD, etc.
+- **Data Science**: TensorFlow, PyTorch, Pandas, scikit-learn, etc.
+
+## 🔐 Privacy
+
+✅ **Uploads are temporary** - Deleted immediately after analysis  
+✅ **No database storage** - Nothing is saved  
+✅ **Local processing** - Everything runs on your computer  
+✅ **No tracking** - We don't collect any data  
+
+## 📊 Performance
+
+- Analyzes typical resume in **< 1 second**
+- Handles up to **16MB file size**
+- Supports **PDF from any source**
+- Works **offline** (after installation)
+
+## 🆘 Need Help?
+
+1. Check the **README.md** file for detailed documentation
+2. Read **error messages carefully** - they tell you what's wrong
+3. Check **browser console** (F12) for JavaScript errors
+4. Check **terminal** for Python errors
+
+## ✅ Checklist Before First Run
+
+- [ ] Python 3.8+ installed
+- [ ] Virtual environment created
+- [ ] Dependencies installed (pip install -r requirements.txt)
+- [ ] All files in correct directories
+- [ ] Port 5000 is available
+- [ ] PDF file ready for testing
+
+## 🎉 You're Ready!
+
+Your AI Resume Analyzer is now ready to use. Enjoy analyzing resumes! 🚀
+
+---
+
+**For detailed documentation**: See `README.md`  
+**For code changes**: Edit files in `utils/` folder  
+**For UI changes**: Edit files in `templates/` and `static/` folders

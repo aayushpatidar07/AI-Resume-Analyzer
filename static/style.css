@@ -1,0 +1,571 @@
+/* ============================================================
+   AI Resume Analyzer & Job Matcher - Stylesheet
+   ============================================================ */
+
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --border-radius: 0.5rem;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================================
+   General Styles
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+main {
+    flex: 1;
+}
+
+/* ============================================================
+   Navigation Bar
+   ============================================================ */
+
+.navbar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.navbar-brand i {
+    margin-right: 0.5rem;
+    font-size: 1.8rem;
+}
+
+/* ============================================================
+   Container & Layout
+   ============================================================ */
+
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* ============================================================
+   Forms & Input Fields
+   ============================================================ */
+
+.form-label {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: #212529;
+    letter-spacing: 0.3px;
+}
+
+.form-control, .form-control-lg {
+    border: 2px solid #dee2e6;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-control-lg:focus {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+    background-color: #fff;
+}
+
+.form-control-lg {
+    min-height: 180px;
+    resize: vertical;
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.input-group .form-control {
+    border-right: none;
+}
+
+.input-group .input-group-text {
+    border-left: none;
+    border-color: #dee2e6;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.btn {
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #157347;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+
+.card {
+    border-radius: 1rem;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-header {
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: none;
+    background: linear-gradient(135deg, #198754 0%, #157347 100%) !important;
+}
+
+.card-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.card-body {
+    background-color: #ffffff;
+}
+
+/* ============================================================
+   Text & Typography
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #212529;
+}
+
+.display-4 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #0d6efd, #198754);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #6c757d;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+small {
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   Features Section
+   ============================================================ */
+
+.feature-box {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.feature-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.feature-box h5 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   Results Section
+   ============================================================ */
+
+#resultsSection {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Match Percentage */
+
+.progress {
+    background-color: #e9ecef;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #198754 0%, #157347 100%);
+    transition: width 0.6s ease;
+}
+
+/* Statistics Boxes */
+
+.stat-box {
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 1rem;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h5 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.stat-box small {
+    font-weight: 500;
+}
+
+/* ============================================================
+   Skills Display
+   ============================================================ */
+
+.skill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    min-height: 50px;
+    align-content: flex-start;
+}
+
+.skill-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.skill-badge.matched {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 2px solid #0f5132;
+}
+
+.skill-badge.missing {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 2px solid #842029;
+}
+
+.skill-badge i {
+    margin-right: 0.5rem;
+}
+
+.empty-message {
+    color: #6c757d;
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+/* ============================================================
+   Alerts
+   ============================================================ */
+
+.alert {
+    border-radius: 1rem;
+    border: none;
+    padding: 1.5rem;
+    font-size: 1.05rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #dc3545;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-left: 4px solid #198754;
+}
+
+.alert i {
+    margin-right: 0.75rem;
+    font-weight: bold;
+}
+
+/* ============================================================
+   Spinner
+   ============================================================ */
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+footer {
+    background-color: #212529;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+footer small {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .skill-badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .feature-box {
+        padding: 1.5rem;
+    }
+
+    .stat-box {
+        margin-bottom: 1rem;
+    }
+
+    .stat-box h5 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .display-4 {
+        font-size: 1.75rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .card {
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+
+    .container-fluid {
+        padding: 0.5rem 1rem;
+    }
+
+    .form-control-lg {
+        min-height: 150px;
+        font-size: 0.95rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+.bg-gradient {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%) !important;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+
+.text-danger {
+    color: var(--danger-color) !important;
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+}
+
+.text-info {
+    color: var(--info-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.shadow-lg {
+    box-shadow: var(--box-shadow) !important;
+}
+
+/* ============================================================
+   Accessibility
+   ============================================================ */
+
+:focus-visible {
+    outline: 2px solid var(--success-color);
+    outline-offset: 2px;
+}
+
+/* Ensure text is readable */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--success-color);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   Print Styles
+   ============================================================ */
+
+@media print {
+    body {
+        background: white;
+    }
+
+    .navbar, footer {
+        display: none;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn {
+        display: none;
+    }
+}
