@@ -8,7 +8,7 @@
 
 ## 📋 PRE-INSTALLATION CHECKLIST
 
-### System Requirements
+### System RequirementsS
 - [ ] **Operating System**: Windows, macOS, or Linux
 - [ ] **RAM**: Minimum 2GB, recommended 4GB+
 - [ ] **Disk Space**: At least 500MB available

@@ -1,6 +1,8 @@
 """
 AI Resume Analyzer & Job Matcher
 A Flask web application to analyze resumes and match them with job descriptions
+shared via RESTful API.
+hxttps://github.com/yourusername/AI-Resume-Analyzer
 """
 
 import os

@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================
-REM AI Resume Analyzer & Job Matcher - Windows Startup Script
+REM AI Resume Analyzer & Job Matcher - Windows Startup Scripts
 REM ============================================================
 
 echo.

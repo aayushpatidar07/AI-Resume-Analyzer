@@ -1,6 +1,6 @@
 # TESTING GUIDE
 
-## Comprehensive Testing for AI Resume Analyzer & Job Matcher
+## Comprehensive Testing for AI Resume Analyzer & Job Matcher's
 
 This guide covers all testing scenarios and validation procedures.
 

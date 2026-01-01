@@ -6,7 +6,7 @@ Customize the application settings here
 import os
 
 # =====================================================
-# FLASK CONFIGURATION
+# FLASK CONFIGURATIONS
 # =====================================================
 
 # Application settings

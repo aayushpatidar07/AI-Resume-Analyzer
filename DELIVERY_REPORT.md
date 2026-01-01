@@ -9,7 +9,7 @@
 
 ---
 
-## 📦 WHAT YOU HAVE RECEIVED
+## 📦 WHAT YOU HAVE RECEIVED .
 
 ### Complete Full-Stack Application
 

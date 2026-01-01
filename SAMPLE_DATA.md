@@ -1,6 +1,6 @@
 # SAMPLE TEST DATA
 
-## Sample Resume (for manual testing)
+## Saample Resume (for manual testing)
 
 ```
 JOHN ANDERSON

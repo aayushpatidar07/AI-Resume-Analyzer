@@ -8,7 +8,7 @@
 
 ---
 
-## 🚀 QUICK NAVIGATION
+## 🚀 QUICK NAVIGATION !
 
 ### 👤 **For First-Time Users** (Start Here!)
 1. Read: [QUICK_START.txt](QUICK_START.txt) - Setup in 5 minutes
