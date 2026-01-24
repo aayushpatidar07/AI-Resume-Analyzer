@@ -12,12 +12,13 @@ import os
 # Application settings
 DEBUG = True
 TESTING = False
-SECRET_KEY = 'your-secret-key-here'  # Change in production
+SECRET_KEY = 'your-secret-key-here'  # Change in production - use strong secret in production
 
 # Server settings
 HOST = '127.0.0.1'
 PORT = 5000
 DEVELOPMENT_MODE = True
+ENV = 'development'  # Change to 'production' for production
 
 # =====================================================
 # FILE UPLOAD CONFIGURATION

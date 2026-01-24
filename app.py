@@ -1,15 +1,24 @@
 """
 AI Resume Analyzer & Job Matcher
 A Flask web application to analyze resumes and match them with job descriptions
-shared via RESTful API.
-hxttps://github.com/yourusername/AI-Resume-Analyzer
+via RESTful API.
+https://github.com/aayushpatidar07/AI-Resume-Analyzer
 """
 
 import os
+import sys
+import logging
 import traceback
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Import custom modules
 from utils.resume_parser import ResumeParser
@@ -151,12 +160,11 @@ def analyze():
     
     except Exception as e:
         # Log error for debugging
-        print(f"Error during analysis: {str(e)}")
-        print(traceback.format_exc())
+        logger.error(f"Error during analysis: {str(e)}", exc_info=True)
         
         return jsonify({
             'success': False,
-            'error': f'An unexpected error occurred: {str(e)}'
+            'error': 'An unexpected error occurred during analysis'
         }), 500
 
 
@@ -216,11 +224,13 @@ if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
     # Run Flask app
-    print("=" * 60)
-    print("AI Resume Analyzer & Job Matcher")
-    print("=" * 60)
-    print("Starting Flask development server...")
-    print("Navigate to: http://127.0.0.1:5000")
-    print("=" * 60)
+    logger.info("=" * 60)
+    logger.info("AI Resume Analyzer & Job Matcher")
+    logger.info("=" * 60)
+    logger.info("Starting Flask development server...")
+    logger.info("Navigate to: http://127.0.0.1:5000")
+    logger.info("=" * 60)
+    
+    app.run(debug=True, host='127.0.0.1', port=5000)
     
     app.run(debug=True, host='127.0.0.1', port=5000)
