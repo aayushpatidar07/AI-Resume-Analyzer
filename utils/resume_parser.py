@@ -4,6 +4,7 @@ Extracts text from PDF resume files
 """
 
 import re
+from typing import Dict, Any
 from PyPDF2 import PdfReader
 
 
@@ -13,7 +14,7 @@ class ResumeParser:
     """
     
     @staticmethod
-    def extract_text(file_path):
+    def extract_text(file_path: str) -> str:
         """
         Extract text content from a PDF file
         
@@ -40,7 +41,7 @@ class ResumeParser:
             raise Exception(f"Error reading PDF file: {str(e)}")
     
     @staticmethod
-    def clean_text(text):
+    def clean_text(text: str) -> str:
         """
         Clean and normalize extracted text
         
@@ -62,7 +63,7 @@ class ResumeParser:
         return text.strip()
     
     @staticmethod
-    def parse_resume(file_path):
+    def parse_resume(file_path: str) -> Dict[str, Any]:
         """
         Complete resume parsing pipeline
         
