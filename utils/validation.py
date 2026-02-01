@@ -15,11 +15,20 @@ class ValidationError(Exception):
 class Validator:
     """Utility class for input validation"""
     
+    # Validation patterns
+    PATTERNS = {
+        'email': r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+        'url': r'^https?://[^\s/$.?#].[^\s]*$',
+        'job_title': r'^[a-zA-Z0-9\s\-.,&()]+$',
+        'alphanumeric': r'^[a-zA-Z0-9\s]+$'
+    }
+    
     @staticmethod
     def validate_string(value: Any, 
                        min_length: int = 0,
                        max_length: int = None,
-                       field_name: str = "field") -> str:
+                       field_name: str = "field",
+                       pattern: str = None) -> str:
         """
         Validate string input
         
@@ -28,6 +37,7 @@ class Validator:
             min_length: Minimum string length
             max_length: Maximum string length (None = no limit)
             field_name: Field name for error messages
+            pattern: Optional regex pattern to validate against
             
         Returns:
             Validated string
@@ -47,6 +57,12 @@ class Validator:
             raise ValidationError(
                 f"{field_name} must not exceed {max_length} characters"
             )
+        
+        if pattern and pattern in Validator.PATTERNS:
+            if not re.match(Validator.PATTERNS[pattern], value):
+                raise ValidationError(
+                    f"{field_name} format is invalid"
+                )
         
         return value.strip()
     
