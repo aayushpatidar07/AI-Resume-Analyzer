@@ -4,6 +4,7 @@ Standardized response formatting for API endpoints
 """
 
 from typing import Any, Dict, Optional, List
+from datetime import datetime
 
 
 class ApiResponse:
@@ -12,7 +13,8 @@ class ApiResponse:
     @staticmethod
     def success(data: Any = None, 
                 message: str = "Success",
-                status_code: int = 200) -> tuple:
+                status_code: int = 200,
+                metadata: Optional[Dict] = None) -> tuple:
         """
         Format successful API response
         
@@ -20,6 +22,7 @@ class ApiResponse:
             data: Response data payload
             message: Success message
             status_code: HTTP status code
+            metadata: Optional metadata (timestamp, etc.)
             
         Returns:
             Tuple of (response_dict, status_code)
@@ -28,8 +31,13 @@ class ApiResponse:
             'success': True,
             'message': message,
             'data': data,
-            'status_code': status_code
+            'status_code': status_code,
+            'timestamp': datetime.utcnow().isoformat()
         }
+        
+        if metadata:
+            response['metadata'] = metadata
+            
         return response, status_code
     
     @staticmethod

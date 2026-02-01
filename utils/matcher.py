@@ -11,15 +11,28 @@ class SkillMatcher:
     Matches resume skills with job requirements
     """
     
+    # Cache for normalized skill sets
+    _skill_cache = {}
+    
+    @staticmethod
+    def _normalize_skills(skills: List[str]) -> set:
+        """Normalize skills to lowercase set for caching"""
+        skill_tuple = tuple(sorted([s.lower() for s in skills]))
+        if skill_tuple not in SkillMatcher._skill_cache:
+            SkillMatcher._skill_cache[skill_tuple] = set(skill_tuple)
+        return SkillMatcher._skill_cache[skill_tuple]
+    
     @staticmethod
     def calculate_match_percentage(resume_skills: List[str], 
-                                  job_skills: List[str]) -> float:
+                                  job_skills: List[str],
+                                  method: str = 'intersection') -> float:
         """
         Calculate match percentage between resume and job skills
         
         Args:
             resume_skills (List[str]): Skills found in resume
             job_skills (List[str]): Skills required for job
+            method (str): Matching method ('intersection', 'jaccard', 'cosine')
             
         Returns:
             float: Match percentage (0-100)
@@ -27,9 +40,9 @@ class SkillMatcher:
         if not job_skills:
             return 0.0
         
-        # Convert to sets for comparison
-        resume_set = set(skill.lower() for skill in resume_skills)
-        job_set = set(skill.lower() for skill in job_skills)
+        # Use cached normalization
+        resume_set = SkillMatcher._normalize_skills(resume_skills)
+        job_set = SkillMatcher._normalize_skills(job_skills)
         
         # Calculate intersection (matched skills)
         matched = len(resume_set.intersection(job_set))

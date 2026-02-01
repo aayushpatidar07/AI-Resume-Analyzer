@@ -50,6 +50,25 @@ class LoggerSetup:
         console_handler.setFormatter(console_formatter)
         self.logger.addHandler(console_handler)
         
+        # File handler with rotation
+        if log_file:
+            os.makedirs(os.path.dirname(log_file) or '.', exist_ok=True)
+            file_handler = logging.handlers.RotatingFileHandler(
+                log_file,
+                maxBytes=10485760,  # 10MB
+                backupCount=5
+            )
+            file_handler.setLevel(level)
+            file_formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
+            )
+            file_handler.setFormatter(file_formatter)
+            self.logger.addHandler(file_handler)
+        
+        self._configured = True
+        return self.logger
+        self.logger.addHandler(console_handler)
+        
         # File handler (if specified)
         if log_file:
             os.makedirs(os.path.dirname(log_file) or '.', exist_ok=True)
