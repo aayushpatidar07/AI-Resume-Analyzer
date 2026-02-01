@@ -22,7 +22,27 @@ class ErrorHandler:
         'PROCESSING_ERROR': 'Error during processing',
         'UNAUTHORIZED': 'Unauthorized access',
         'NOT_FOUND': 'Resource not found',
-        'SERVER_ERROR': 'Internal server error'
+        'SERVER_ERROR': 'Internal server error',
+        'VALIDATION_ERROR': 'Validation failed',
+        'TIMEOUT_ERROR': 'Request timeout',
+        'RATE_LIMIT_ERROR': 'Rate limit exceeded'
+    }
+    
+    # HTTP status code mapping
+    STATUS_CODES = {
+        'FILE_NOT_FOUND': 404,
+        'INVALID_PDF': 400,
+        'NO_TEXT_EXTRACTED': 422,
+        'NO_SKILLS_FOUND': 204,
+        'INVALID_INPUT': 400,
+        'FILE_TOO_LARGE': 413,
+        'PROCESSING_ERROR': 500,
+        'UNAUTHORIZED': 401,
+        'NOT_FOUND': 404,
+        'SERVER_ERROR': 500,
+        'VALIDATION_ERROR': 422,
+        'TIMEOUT_ERROR': 504,
+        'RATE_LIMIT_ERROR': 429
     }
     
     @staticmethod
