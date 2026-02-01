@@ -3,8 +3,9 @@ API Versioning
 Support multiple API versions
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional, List
 from enum import Enum
+from datetime import datetime
 
 
 class APIVersion(Enum):
@@ -15,12 +16,14 @@ class APIVersion(Enum):
 
 
 class VersionManager:
-    """Manage API versions"""
+    """Manage API versions with deprecation tracking"""
     
     VERSIONS = {
         'v1': {
             'version': APIVersion.V1,
             'deprecated': False,
+            'release_date': '2025-01-01',
+            'sunset_date': None,
             'endpoints': [
                 'GET /',
                 'POST /analyze',
@@ -30,6 +33,8 @@ class VersionManager:
         'v2': {
             'version': APIVersion.V2,
             'deprecated': False,
+            'release_date': '2025-06-01',
+            'sunset_date': None,
             'endpoints': [
                 'GET /api/v2/health',
                 'GET /api/v2/stats',
@@ -42,6 +47,8 @@ class VersionManager:
             'version': APIVersion.V3_BETA,
             'deprecated': False,
             'status': 'beta',
+            'release_date': None,
+            'sunset_date': None,
             'endpoints': [
                 'POST /api/v3/analyze/advanced',
                 'GET /api/v3/reports',
