@@ -3,12 +3,48 @@ Monitoring and Observability
 Application health monitoring and metrics
 """
 
-from typing import Dict, Any
-from datetime import datetime
+from typing import Dict, Any, List, Callable
+from datetime import datetime, timedelta
 import psutil
 import logging
+from collections import deque
 
 logger = logging.getLogger(__name__)
+
+
+class MetricsCollector:
+    """Collect and track application metrics"""
+    
+    def __init__(self, max_samples: int = 100):
+        self.request_times = deque(maxlen=max_samples)
+        self.error_count = 0
+        self.success_count = 0
+        self.start_time = datetime.now()
+    
+    def record_request(self, duration_ms: float, success: bool):
+        """Record API request metrics"""
+        self.request_times.append(duration_ms)
+        if success:
+            self.success_count += 1
+        else:
+            self.error_count += 1
+    
+    def get_metrics(self) -> Dict[str, Any]:
+        """Get aggregated metrics"""
+        if not self.request_times:
+            return {'message': 'No metrics available yet'}
+        
+        times_list = list(self.request_times)
+        return {
+            'avg_response_time_ms': sum(times_list) / len(times_list),
+            'min_response_time_ms': min(times_list),
+            'max_response_time_ms': max(times_list),
+            'total_requests': len(times_list),
+            'success_count': self.success_count,
+            'error_count': self.error_count,
+            'success_rate': (self.success_count / (self.success_count + self.error_count) * 100) if (self.success_count + self.error_count) > 0 else 0,
+            'uptime_seconds': (datetime.now() - self.start_time).total_seconds()
+        }
 
 
 class HealthStatus:
@@ -18,15 +54,16 @@ class HealthStatus:
         self.status = "healthy"
         self.checks: Dict[str, Any] = {}
         self.last_check = datetime.now()
+        self.check_history: deque = deque(maxlen=50)
     
     def check_database(self) -> bool:
         """Check database connection"""
         try:
             # Database connection check
-            self.checks['database'] = {'status': 'ok'}
+            self.checks['database'] = {'status': 'ok', 'timestamp': datetime.now().isoformat()}
             return True
         except Exception as e:
-            self.checks['database'] = {'status': 'failed', 'error': str(e)}
+            self.checks['database'] = {'status': 'failed', 'error': str(e), 'timestamp': datetime.now().isoformat()}
             return False
     
     def check_memory(self) -> bool:
@@ -36,7 +73,8 @@ class HealthStatus:
             percent = memory.percent
             self.checks['memory'] = {
                 'status': 'ok' if percent < 90 else 'warning',
-                'percent': percent
+                'percent': percent,
+                'timestamp': datetime.now().isoformat()
             }
             return percent < 95
         except Exception as e:
