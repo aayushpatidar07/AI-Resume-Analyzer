@@ -9,7 +9,7 @@ A production-ready Flask web application that analyzes resumes and matches them 
 - **Job Description Analysis**: Extract required skills from job descriptions
 - **Skill Matching**: Calculate match percentage and identify matched/missing skills
 - **Responsive UI**: Modern, mobile-friendly interface with Bootstrap
-- **Real-tTime Feedback**: Instant analysis with visual results
+- **Real-Time Feedback**: Instant analysis with visual results
 - **Error Handling**: Comprehensive error messages for better UX
 
 ## 📋 Requirements
