@@ -1,6 +1,10 @@
 """
 Configuration File for AI Resume Analyzer & Job Matcher
-Customize the application settings here
+Customize the application settings here.
+
+This configuration file centralizes all application settings including
+Flask configurations, file upload limits, skill extraction parameters,
+and matching algorithms.
 """
 
 import os
