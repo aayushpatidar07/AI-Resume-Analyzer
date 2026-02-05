@@ -2,7 +2,10 @@
 AI Resume Analyzer & Job Matcher
 A Flask web application to analyze resumes and match them with job descriptions
 via RESTful API.
-https://github.com/aayushpatidar07/AI-Resume-Analyzer
+
+Author: Aayush Patidar
+Repository: https://github.com/aayushpatidar07/AI-Resume-Analyzer
+Version: 1.0.0
 """
 
 import os
@@ -231,6 +234,6 @@ if __name__ == '__main__':
     logger.info("Navigate to: http://127.0.0.1:5000")
     logger.info("=" * 60)
     
-    app.run(debug=True, host='127.0.0.1', port=5000)
-    
+    # Run Flask app (single invocation)
+    logger.info("Starting Flask development server (debug=%s)", True)
     app.run(debug=True, host='127.0.0.1', port=5000)

@@ -16,9 +16,9 @@ A production-ready Flask web application that analyzes resumes and matches them 
 - **Real-Time Feedback**: Instant analysis with visual results
 - **Error Handling**: Comprehensive error messages for better UX
 
-## 📋 Requirements
-
-- Python 3.8+
+-## 📋 Requirements
+-
+- Python 3.9+
 - pip (Python package manager)
 - 50MB free disk space
 
