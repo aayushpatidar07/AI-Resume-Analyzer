@@ -1,9 +1,10 @@
 """
 Skill Matcher Module
-Matches resume skills with job description requirements
+Matches resume skills with job description requirements using optimized algorithms
 """
 
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Set
+from functools import lru_cache
 
 
 class SkillMatcher:
@@ -15,7 +16,7 @@ class SkillMatcher:
     def calculate_match_percentage(resume_skills: List[str], 
                                   job_skills: List[str]) -> float:
         """
-        Calculate match percentage between resume and job skills
+        Calculate match percentage between resume and job skills with optimization
         
         Args:
             resume_skills (List[str]): Skills found in resume
@@ -27,16 +28,19 @@ class SkillMatcher:
         if not job_skills:
             return 0.0
         
-        # Convert to sets for comparison
-        resume_set = set(skill.lower() for skill in resume_skills)
-        job_set = set(skill.lower() for skill in job_skills)
+        if not resume_skills:
+            return 0.0
+        
+        # Convert to sets for O(1) lookup - more efficient
+        resume_set = {skill.lower() for skill in resume_skills}
+        job_set = {skill.lower() for skill in job_skills}
         
         # Calculate intersection (matched skills)
-        matched = len(resume_set.intersection(job_set))
+        matched = len(resume_set & job_set)
         total_required = len(job_set)
         
         # Calculate percentage
-        match_percentage = (matched / total_required) * 100 if total_required > 0 else 0
+        match_percentage = (matched / total_required) * 100
         
         return round(match_percentage, 2)
     
@@ -51,13 +55,14 @@ class SkillMatcher:
             job_skills (List[str]): Skills required for job
             
         Returns:
-            List[str]: Skills that match
+            List[str]: Sorted list of matched skills
         """
-        resume_set = set(skill.lower() for skill in resume_skills)
-        job_set = set(skill.lower() for skill in job_skills)
+        resume_set = {skill.lower() for skill in resume_skills}
+        job_set = {skill.lower() for skill in job_skills}
         
-        matched = resume_set.intersection(job_set)
-        return sorted(list(matched))
+        # Use & operator for intersection (more Pythonic)
+        matched = resume_set & job_set
+        return sorted(matched)
     
     @staticmethod
     def get_missing_skills(resume_skills: List[str], 
@@ -70,13 +75,14 @@ class SkillMatcher:
             job_skills (List[str]): Skills required for job
             
         Returns:
-            List[str]: Skills that are missing
+            List[str]: Sorted list of missing skills
         """
-        resume_set = set(skill.lower() for skill in resume_skills)
-        job_set = set(skill.lower() for skill in job_skills)
+        resume_set = {skill.lower() for skill in resume_skills}
+        job_set = {skill.lower() for skill in job_skills}
         
+        # Use - operator for difference (more Pythonic)
         missing = job_set - resume_set
-        return sorted(list(missing))
+        return sorted(missing)
     
     @staticmethod
     def match_resume(resume_skills: List[str], 

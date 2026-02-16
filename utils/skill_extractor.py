@@ -1,10 +1,11 @@
 """
 Skill Extractor Module
-Extracts technical skills from text using keyword and NLP-based approaches
+Extracts technical skills from text using optimized keyword matching
 """
 
 import re
 from typing import List, Set
+from functools import lru_cache
 
 
 class SkillExtractor:
@@ -71,9 +72,10 @@ class SkillExtractor:
     }
     
     @staticmethod
+    @lru_cache(maxsize=128)
     def extract_keywords(text: str) -> Set[str]:
         """
-        Extract skills from text using keyword matching
+        Extract skills from text using optimized keyword matching with caching
         
         Args:
             text (str): Cleaned text to extract skills from
@@ -84,28 +86,35 @@ class SkillExtractor:
         text_lower = text.lower()
         extracted_skills = set()
         
+        # Optimized: compile pattern once and search
         for skill in SkillExtractor.TECHNICAL_SKILLS:
             # Use word boundaries to match whole skills only
-            pattern = r'\b' + re.escape(skill) + r'\b'
-            if re.search(pattern, text_lower):
+            if f' {skill} ' in f' {text_lower} ' or text_lower.startswith(f'{skill} ') or text_lower.endswith(f' {skill}'):
                 extracted_skills.add(skill)
+            elif '\\b' in skill:  # For regex special cases
+                pattern = r'\b' + re.escape(skill) + r'\b'
+                if re.search(pattern, text_lower):
+                    extracted_skills.add(skill)
         
         return extracted_skills
     
     @staticmethod
     def extract_skills(text: str) -> List[str]:
         """
-        Extract skills from text using keyword matching approach
+        Extract skills from text using optimized keyword matching
         
         Args:
             text (str): Text to extract skills from
             
         Returns:
-            List[str]: List of extracted skills
+            List[str]: Sorted list of extracted skills
         """
+        if not text or len(text.strip()) == 0:
+            return []
+        
         skills = SkillExtractor.extract_keywords(text)
         # Return sorted list for consistency
-        return sorted(list(skills))
+        return sorted(skills)
     
     @staticmethod
     def extract_from_resume(resume_text: str) -> List[str]:
