@@ -13,6 +13,7 @@ import sys
 import logging
 import traceback
 from datetime import datetime
+from functools import lru_cache
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 
@@ -28,19 +29,23 @@ from utils.resume_parser import ResumeParser
 from utils.skill_extractor import SkillExtractor
 from utils.matcher import SkillMatcher
 
+# Configuration constants
+MAX_FILE_SIZE = 16 * 1024 * 1024  # 16MB
+MIN_JOB_DESC_LENGTH = 10
+ALLOWED_EXTENSIONS = {'pdf'}
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 
 # Flask Application Setup
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
-app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
-
-# Allowed extensions
-ALLOWED_EXTENSIONS = {'pdf'}
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def allowed_file(filename):
     """Check if file has allowed extension"""
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    if not filename or '.' not in filename:
+        return False
+    return filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
@@ -88,20 +93,20 @@ def analyze():
                 'error': 'Only PDF files are allowed'
             }), 400
         
-        if len(job_description) < 10:
+        if len(job_description) < MIN_JOB_DESC_LENGTH:
             return jsonify({
                 'success': False,
-                'error': 'Job description must be at least 10 characters'
+                'error': f'Job description must be at least {MIN_JOB_DESC_LENGTH} characters'
             }), 400
-        
-        # Save uploaded file
-        filename = secure_filename(resume_file.filename)
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S_')
-        filename = timestamp + filename
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         
         # Create uploads directory if it doesn't exist
         os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        
+        # Save uploaded file with timestamp
+        filename = secure_filename(resume_file.filename)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S_')
+        filename = f"{timestamp}{filename}"
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         resume_file.save(file_path)
         
         # Step 1: Parse resume
@@ -155,9 +160,10 @@ def analyze():
         
         # Clean up uploaded file
         try:
-            os.remove(file_path)
-        except:
-            pass
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        except Exception as cleanup_error:
+            logger.warning(f"Failed to remove temporary file {file_path}: {cleanup_error}")
         
         return jsonify(analysis_result)
     

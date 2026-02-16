@@ -90,7 +90,7 @@ class ListHelper:
     @staticmethod
     def remove_duplicates(items: List[Any]) -> List[Any]:
         """
-        Remove duplicates while preserving order
+        Remove duplicates while preserving order (optimized with dict.fromkeys)
         
         Args:
             items: List with potential duplicates
@@ -98,22 +98,26 @@ class ListHelper:
         Returns:
             List with duplicates removed
         """
-        seen = set()
-        result = []
-        for item in items:
-            # Handle unhashable types
-            try:
-                if item not in seen:
-                    seen.add(item)
+        try:
+            # Optimized: dict.fromkeys maintains insertion order (Python 3.7+)
+            return list(dict.fromkeys(items))
+        except TypeError:
+            # Fallback for unhashable types
+            seen = set()
+            result = []
+            for item in items:
+                try:
+                    if item not in seen:
+                        seen.add(item)
+                        result.append(item)
+                except TypeError:
                     result.append(item)
-            except TypeError:
-                result.append(item)
-        return result
+            return result
     
     @staticmethod
     def flatten_list(nested_list: List[List[Any]]) -> List[Any]:
         """
-        Flatten nested list
+        Flatten nested list (optimized for single-level nesting)
         
         Args:
             nested_list: Nested list structure
@@ -123,7 +127,7 @@ class ListHelper:
         """
         result = []
         for item in nested_list:
-            if isinstance(item, list):
+            if isinstance(item, (list, tuple)):
                 result.extend(ListHelper.flatten_list(item))
             else:
                 result.append(item)
@@ -150,7 +154,7 @@ class DictHelper:
     @staticmethod
     def merge_dicts(dict1: Dict, dict2: Dict) -> Dict:
         """
-        Merge two dictionaries
+        Merge two dictionaries (optimized with dict unpacking)
         
         Args:
             dict1: First dictionary
@@ -159,9 +163,8 @@ class DictHelper:
         Returns:
             Merged dictionary
         """
-        result = dict1.copy()
-        result.update(dict2)
-        return result
+        # More Pythonic and efficient
+        return {**dict1, **dict2}
     
     @staticmethod
     def get_nested(data: Dict, path: str, default: Any = None) -> Any:
