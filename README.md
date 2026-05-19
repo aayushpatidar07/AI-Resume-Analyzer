@@ -348,7 +348,7 @@ Created as a production-ready full-stack application demonstrating:
 - Frontend web technologies
 - Software engineering best practices
 
-## 💡 Tips for Best Results
+## 💡 Tips for Best Results  
 
 1. **Resume Quality**: Use properly formatted PDF resumes
 2. **Job Description**: Include detailed requirements and skills
